@@ -1,5 +1,6 @@
 import React from 'react';
 import './HomeHeader.css';
+import AccountMenu from '../components/Profile';
 
 interface HomeHeaderProps {
     courseName: string;
@@ -13,7 +14,7 @@ function HomeHeader(props: HomeHeaderProps) {
         </div>
         <div className='course-name'>{props.courseName}</div>
         <div className='corner'>
-
+            <AccountMenu />
         </div>
     </div>
   );
