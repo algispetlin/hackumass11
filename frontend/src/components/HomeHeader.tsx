@@ -7,20 +7,24 @@ interface HomeHeaderProps {
     courseName: string;
 }
 
+const courses = ["CS 220", "CS 230", "CS 240", "CS 250", "STATS 515"];
+
 function HomeHeader(props: HomeHeaderProps) {
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const selectCourse = (index: number) => {
+    setSelectedIndex(index);
+  }
+
   return (
     <div className="home-header">
         <div className='corner'>
-          <TemporaryDrawer />
+          <TemporaryDrawer select={selectCourse} courses={courses} />
         </div>
-        <div className='course-name'>{props.courseName}</div>
+        <div className='course-name'>{courses[selectedIndex]}</div>
         <div className='corner'>
+
         </div>
-<<<<<<< Updated upstream
-        <><AccountMenu /></>
-=======
-        <>  <AccountMenu /></>
->>>>>>> Stashed changes
+        <AccountMenu />
     </div>
   );
 }

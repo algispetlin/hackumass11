@@ -10,24 +10,28 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '@mui/icons-material/Menu';
+
+import IconButton from '@mui/material/IconButton';
 
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { SxProps } from '@mui/system';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer(props: { select: (index: number) => void, courses: string[] }) {
   const [state, setState] = React.useState({
     left: false,
   });
 
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number,
   ) => {
     setSelectedIndex(index);
+    props.select(index);
     //handleClick();
   };
 
@@ -75,9 +79,19 @@ export default function TemporaryDrawer() {
       //onKeyDown={toggleDrawer(anchor, openDrawer)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {props.courses.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton selected={selectedIndex === index} onClick={(event) => handleListItemClick(event, index)}>
+            <ListItemButton sx={{
+          "&.Mui-selected": {
+            backgroundColor: "#a1a1a1"
+          },
+          "&.Mui-focusVisible": {
+            backgroundColor: "#a1a1a1"
+          },
+          ":hover": {
+            backgroundColor: "#a1a1a1"
+          }
+        }} selected={selectedIndex === index} onClick={(event) => handleListItemClick(event, index)}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -89,12 +103,12 @@ export default function TemporaryDrawer() {
     </Box>
     </ClickAwayListener>
   );
-
+  
   return (
     <div>
       {(['left'] as const).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <IconButton sx={{ color: "#FFBF00", ml: 1}} aria-label="Menu" onClick={toggleDrawer(anchor, true)}><MenuIcon /></IconButton>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
