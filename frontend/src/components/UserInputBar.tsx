@@ -5,10 +5,7 @@ import { purple } from '@mui/material/colors';
 import './UserInputBar.css';
 import SendIcon from '@mui/icons-material/Send';
 import { Button } from '@mui/material';
-
-
-
-
+import { get, post } from '../services/RestService';
 
 const theme = createTheme({
     palette: {
@@ -34,10 +31,10 @@ function UserInputBar() {
       }
     };
     
-    const handleSubmit = () => {
-      setStoredText(inputText);
-      // send to backend
+    const handleSubmit = async () => {
+      let response = await post('/ask-question', { "courseId": "CS220", "question": inputText });
       
+      setStoredText(response.answer);
       setInputText('');
     };
 

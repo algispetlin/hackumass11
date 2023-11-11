@@ -1,14 +1,14 @@
 import { Question } from "../models/ApiModel";
 
-const FLASK_URL: string = 'https://localhost:5000';
+const FLASK_URL: string = 'http://localhost:5000';
 
-export function get(url: string): Promise<any> {
+export async function get(url: string) {
     const requestInfo = { method: "GET" };
     
-    return fetch(FLASK_URL + url, requestInfo);
+    return await fetch(FLASK_URL + url, requestInfo).then(response => response.json());
 }
 
-export function post(url: string, payload?: Question): Promise<any> {
+export async function post(url: string, payload?: Question) {
     const requestInfo = { 
         method: "POST", 
         headers: {
@@ -18,5 +18,5 @@ export function post(url: string, payload?: Question): Promise<any> {
         body: payload ? JSON.stringify(payload) : null
     };
 
-    return fetch(FLASK_URL + url, requestInfo);
+    return await fetch(FLASK_URL + url, requestInfo).then(response => response.json());
 }
