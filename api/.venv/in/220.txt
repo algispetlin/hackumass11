@@ -1,0 +1,216 @@
+                      COMPSCI 220 - Programming Methology
+                                               4 credits, Fall 2023
+
+                      Instructor:               Marius Minea
+                      Email:                marius@cs.umass.edu
+                      Office:         LGRC A261, phone: (413) 545-1734
+                      Lectures:       Tuesdays and Thursdays, 4:00-5:15pm, ILC N151
+
+            Teaching Assistants:                       Undergraduate Course Assistants:
+ Saurabh Bajaj      sbajaj@umass.edu                    Yuni Jeong     Maximilian Kuechen
+ Md. Ashraful Islam mdashrafulis@umass.edu      Vi Doan          Simran Lekwani Saadhvi Raghav
+ Dung Pham          dungpham@umass.edu          Noah Ford        Maggie Li        Shrushti Soni
+ Kyler Schulz       klschulz@umass.edu          Jeffrey Gomez Sonali Palit        Minh Vu
+ Angela Upreti      azupreti@umass.edu          Lucky Kovvuri Carey Pope
+Supplemental Instruction: Prit Shah, pritpritamsh@umass.edu, see Canvas/Campuswire for schedule
+Course Materials: This course does not use a textbook. All materials will be posted on the Canvas page.
+Office Hours:
+    Times for office hours will be posed and updated on Canvas. We encourage you to participate in office
+hours: this is a smaller and more personalized setting where we can discuss differently than in a large
+classroom. Your contribution to office hours helps create a learning community: you interact with other
+colleagues; this can help both you and others who might have similar questions or benefit from seeing a
+different approach or viewpoint. It also helps us instructors get to know you and have a better view on how
+the course is progressing.
+Course Objectives
+    The goal of COMPSCI220 Programming Methodology is to turn you into an advanced programmer with
+a deep understanding of modern programming methodology. We will emphasize good software engineering
+skills, including programming abstractions, testing, and debugging. Although the programming languages
+that we will use are JavaScript and TypeScript, we will emphasize general programming principles. Every-
+thing that you will learn in the class will be applicable to other modern languages, including (for example)
+C++, C#, D, Go, Java, Python, Rust, and Swift.
+Learning Outcomes As a successful student, by the end of this course, you will be able to:
+  1. Write programs that use abstractions such as higher-order functions (for example: map, filter, and
+     reduce), and object-oriented programming.
+   2. Employ an accurate mental model of programming languages that support mutable state, assignable
+      variables, objects, higher-order functions, and garbage collection, as well as understand fundamentals
+      of their implementation.
+   3. Design test cases to detect errors in code by applying systematic criteria, and write code predicates
+      to validate the inputs and outputs of a potential solution to a programming problem.
+   4. Select and use appropriate design patterns such as builders, fluent APIs, publish/subscribe, state,
+      memento, and promises for handling errors.
+   5. Reason about the correctness of code by establishing pre- and postconditions, and loop invariants.
+   6. Understand and make use of software version control utilities such as Git.
+Prerequisites: To succeed in COMPSCI 220 you should be familiar with the following concepts:
+  • Loops
+   • Variables – declaration and scope
+   • Defining and using functions to decompose problems
+   • Recursive functions with integer arguments
+    • Algorithms/Data Structures – Lists, Trees, and Recursion
+It is helpful to review these topics if needed. If you feel insufficiently familar with one of these topics, please
+speak to course staff immediately. The Canvas site also has guidelines for writing and testing your code.
+
+                                                        1
+Grading, exam schedule and makeup policies: Your grade for this course will be composed of several
+different aspects weighted according to the break down below,
+    • Homework (40%): There will be programming assignments throughout the semester, usually with
+       weekly deadlines. These projects will be programmed in Ocelot and submitted via Gradescope. The
+       lowest homework grade per student will be dropped.
+    • Quizzes(10%): Weekly quizzes will be released, typically on Monday, open for 24 hours. Once started
+       you will have a set amount of time to complete each quiz.
+    • Lab Participation (8%): Each lab session may have a short quiz or a small accompanying assignment
+       that will be graded for completion.
+    • Lecture questions (2%): graded 70% for participation and 30% for correctness. The highest 20
+       lecture scores will count towards your grade.
+    • Exams (40%): This course will have two midterm exams and one final exam.
+       You must score at least 1/3 of exam points (33.33% exam average) to pass the course.
+          – Midterm 1 (12%): Wednesday 4 October, 7-9pm, location TBA
+          – Midterm 2 (12%): Wednesday 1 November, 7-9pm, location TBA
+          – Final Exam (16%): Friday 15 December, 3:30-5:30pm, location TBA
+    You must notify the instructor in advance if you are unable to take the exams at the scheduled time
+(e.g., due to illness). If a severe accident prevents you from communicating (or asking someone), you must
+notify the instructors as soon as possible. Failure to do this and missing the exam results in a grade of zero.
+    Tentative letter grade thresholds:
+90: A       86: A-      82: B+       78: B     74: B-    70: C+     66: C      62: C-     58: D+      54: D
+Thresholds may be adjusted based on the overall performance in the course, but will not be more strict.
+Atendance, late submission and exemption policies:
+    You are expected to attend lectures – this is the best way to engage in discussion and understanding of
+the material. Lecture questions (and attendance) are part of the course grade. If you cannot attend (e.g.,
+for medical reasons), you are expected to watch the lecture recordings. Lab attendance is mandatory and
+part of the course grade. If you cannot attend a lab (e.g., for medical reasons), you must notify the TA
+leading your lab section ahead of time and discuss how to make up the lab activity.
+    Turning homework in late helps no one. When you turn homework in late, you cannot receive feedback
+on time and risk falling behind, as the course has moved on to the next topic. Instructors cannot detect
+what material needs to be reviewed or discussed again, etc. Because of this, the general rule is that late
+homework will not be accepted. The only exception to this are justified medical or personal situations that
+fall outside the ordinary. In these cases, you must notify the instructors ahead of time and request an
+extension. We will review your request and decide if an extension is warranted. You should start homework
+early. A sudden happening on the due date, when you had planned on doing most of the work is not a
+reason for an extension.
+    All homework will be due at 11:59 PM on the due date. Please allow time to check and make sure
+you’ve submitted everything properly, and avoid any unexpected issues (slow Internet connection, uploading
+the wrong file in a hurry, leaving extraneous code in, etc.) Also, expect assignments to require several
+programming and testing sessions to complete. We suggest you begin working on them early, so we can all
+collaborate and help each other with any questions in a timely way.
+Academic Honesty:
+    You are encouraged to form study groups, learn and discuss the course material jointly with others.
+You are required to work individually on all items resulting in a grade. In particular, it is forbidden to share
+homework code or solution ideas.
+You are encouraged to ask public questions, in office hours or on Campuswire. Your questions and the
+answers to them can be useful for others as well (and you are encouraged to help with answers). Public
+questions about homework should be of a general nature (clarification, applicable course material), and not
+involve code snippets or specific solution ideas. Use private questions otherwise if needed.
+This course assumes that all work submitted by students will be generated by the students themselves,
+working individually or in groups. Students should not have another person/entity do the writing of any
+portion of an assignment for them, which includes hiring a person or a company to write assignments and
+using artificial intelligence tools like ChatGPT.
+
+                                                       2
+     As members of the College of Information and Computer Sciences at UMass Amherst we expect everyone
+to behave responsibly and honorably. In particular, we expect each of you not to give, receive, or use aid
+in examinations, nor to give, receive, or use unpermitted aid in any academic work. Doing your part in
+observing this code, and ensuring that others do likewise is essential for having a community of respect,
+integrity, fairness, and trust.
+     If you cheat in a course, you are taking away from your own opportunity to learn and develop as a
+professional. You also hurt your colleagues, and this will hurt people you will work with in the future, who
+expect an honest and responsible professional.
+     As faculty, we pledge to use academic policies designed for fairness, avoiding situations that are conducive
+to violating academic honesty, as well as unreasonable or unusual procedures that assume dishonesty.
+     We will follow the Academic Honesty Policy and Procedures established by the university to ensure that
+the learning environment is both honest and fair. Integrity is essential in all aspects of higher education,
+academic dishonesty is prohibited in all university programs, including this course. Academic dishonesty as
+defined by the University’s Academic Honesty Policy includes but is not limited to:
+    • Cheating - the intentional use or attempted use of trickery or deception in one’s academic work.
+    • Fabrication - intentional falsification and/or invention of any information or citation
+    • Plagiarism - knowingly representing the words or ideas of another as one’s own work
+    • Facilitating Dishonesty - knowingly helping or attempting to help another commit an act of academic
+        dishonesty
+     Any violation of the Academic Honesty Policy could result in a failing grade in the course and initiation
+of the formal Academic Honesty Procedures of the University. Students are expected to be familiar with
+these policies, if you have any questions please email the course instructors for clarification.
+     The College of Information and Computer Sciences explicitly forbids any redistribution (including pub-
+licly available posting on an internet site) of any CICS course materials (including student solutions to course
+assignments, projects, exams, etc.) without the express written consent of the instructor of the course from
+which the materials come. Violations of this policy will be deemed instances of “facilitating dishonesty”
+(since a student making use of such materials would be guilty of plagiarism) and therefore may result in
+charges under the Academic Honesty Policy.
+Accommodation Statement: Both the University of Massachusetts Amherst and your course staff are
+committed to providing an equal educational opportunity for all students. If you have a physical, psycho-
+logical, or learning disability documented with Disability Services, please communicate your needs to us in
+the first two weeks of the semester so that we may make any necessary accommodations. If you are not sure
+if you qualify for an accommodation or if you have any questions on the topic of accommodations please
+contact Disability Services(http://www.umass.edu/disability/) for more information.
+Equity and Inclusion Statement: We are committed to fostering a culture of diversity and inclusion,
+where everyone is treated with dignity and respect. This course is for everyone. This course is for you,
+regardless of your age, background, citizenship, disability, sex, education, ethnicity, family status, gender,
+gender identity, geographical origin, language, military experience, political views, race, religion, sexual
+orientation, socioeconomic status, or work experience.
+    Because of that, one of the things we all need to realize is that we will be bringing different skills to
+the course, and we will all be learning from and with each other. Some of us are great artists, some of us
+aren’t. Some of us have had previous experience with community organizing, and for some of us that may
+be something new. Some of us have very definite plans for our professional careers, some of us are still
+exploring. Each of these skills will help us succeed, both individually and as a group. Please be kind and
+courteous. Respect that people have differences of opinion, and work and approach problems differently.
+There is seldom a single right answer to complicated questions.
+    Please keep unstructured critique to a minimum. Criticism should be constructive. Disruptive behavior
+is not welcome, and insulting, demeaning, or harassing anyone is unacceptable. We follow the university’s
+guidelines for classroom civility (http://www.umass.edu/dean_students/campus-policies/classroom).
+In particular, we don’t tolerate behavior that excludes people in socially marginalized groups. If you feel you
+have been or are being harassed or made uncomfortable by someone in this class, please contact a member
+of the course staff immediately, or if you feel uncomfortable doing so, contact the Dean of Students office.
+    This course is for all of us. We will all learn from each other. This is our welcome.
+
+                                                       3
+Communication policy and response frequency We use Campuswire for communication. We will
+attempt to answer all questions within 24 hours and often much sooner. However, you should not rely on
+last-minute questions for help on homework. When needed, use private instructor-only posts rather than
+e-mail, this will make them more readily seen, and any of the staff team can answer them. For sensitive
+private matters, email the instructor.
+Chosen names and pronouns Everyone has the right to be addressed by the name and pronouns that
+they use for themselves. Students can indicate their preferred/chosen first name and pronouns on SPIRE,
+which appear on class rosters. Please let me know what name and pronouns I should use for you if they are
+not on the roster. A student’s chosen name and pronouns are to be respected at all times in the classroom.
+Title IX Statement Title IX of the Education Amendments of 1972 is a federal civil rights law that
+prohibits discrimination on the basis of sex in any education program or activity that receives federal
+funding. Sex discrimination includes sexual harassment, sexual battery, sexual assault, and rape. Title IX
+applies to all public and private educational institutions receiving federal financial assistance.
+    If you have been the victim of sexual violence, gender discrimination, or sexual harassment, the university
+can provide you with a variety of support resource and accommodations. UMass is committed to providing
+these resources with minimal impact and costs to survivors on a case-by-case basis. Resources are available
+to survivors with or without them filing a complaint. No upfront costs are charged to any currently enrolled
+students for University Health Services or the Center for Counseling and Psychological Health, and no fees
+exist for services in the Dean of Students Office, the Center for Women and Community, Student Legal
+Services, or by live-in residential staff.
+Schedule (tentative, a current schedule will be maintained on Canvas)
+            Lecture #      Date           Description
+            1              9/5            Introduction and Higher-Order Functions
+            2              9/7            Basic TypeScript Features. Type Signatures.
+            3              9/12           More Higher-Order Functions
+            4              9/14           Unit Testing
+            5              9/19           Closures
+            6              9/21           Lists
+            7              9/26           Mental Models
+            8              9/28           More Lists/HOF/Review
+            9              10/3           Midterm 1 Review
+             Exam          10/4           Midterm 1
+            10             10/5           Property-based Testing
+            11             10/12          Object-Oriented Programming
+            12             10/17          Streams
+            13             10/19          More Streams
+            14             10/24          Observers
+            15             10/26          Builders and Fluent Interfaces
+            16             10/31          Midterm 2 Review
+            Exam           11/1           Midterm 2
+            17             11/2           Asynchronous Programming
+            18             11/7           Asynchronous Programming
+            19             11/9           SOLID Principles
+            20             11/14          Program Correctness
+            21             11/16          Program Correctness
+            22             11/21          Building an Interpreter
+            23             11/28          Building an Interpreter
+            24             11/30          Extending Libraries
+            25             12/5           TBD/Review
+            26             12/7           Final Review
+
+
+                                                        4
+
