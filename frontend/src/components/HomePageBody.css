@@ -4,6 +4,7 @@
     flex-Direction: 'column';
     background-color: rgb(126, 117, 117);
     height: 100%;
+    justify-content: center;
 
 }
 

@@ -3,6 +3,10 @@ import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { purple } from '@mui/material/colors';
 import './UserInputBar.css';
+import SendIcon from '@mui/icons-material/Send';
+import { Button } from '@mui/material';
+import { get, post } from '../services/RestService';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -20,11 +24,17 @@ function UserInputBar() {
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
       setInputText(event.target.value);
     };
-  
-    const handleSubmit = () => {
-      setStoredText(inputText);
-      // send to backend
-      <p>Entered text: {storedText}</p>
+
+    const handleKeyPress = (event: { key: string; }) => {
+      if (event.key === 'Enter') {
+        handleSubmit(); 
+      }
+    };
+    
+    const handleSubmit = async () => {
+      let response = await post('/ask-question', { "courseId": "CS220", "question": inputText });
+      
+      setStoredText(response.answer);
       setInputText('');
     };
 
@@ -38,8 +48,13 @@ function UserInputBar() {
   
     return (
       <ThemeProvider theme={theme}>
+      <div className='push-bottom'>
+      <div className='circle'>
+        {storedText}
+      </div>
+      <div className='empty-space'></div>
       <div>
-        <TextField
+        <TextField 
             
             variant="filled" 
             color= 'primary' focused
@@ -48,13 +63,14 @@ function UserInputBar() {
             value={inputText}
             onChange={handleChange}
             fullWidth
-            
-        
+            onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSubmit}>Submit</button>
-
-        <p>Entered text: {storedText}</p>
       </div>
+      <div className='button-alignment'><Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit}>
+        Send
+      </Button></div>
+      </div>
+      
       </ThemeProvider>
     );
 }
