@@ -1,10 +1,11 @@
 import React from 'react';
+import HomeHeader from '../components/HomeHeader';
 
 function HomePage() {
   return (
-    <div>
-      <h1>This is a placeholder</h1>
-    </div>
+    <>
+      <HomeHeader courseName="CS220" />
+    </>
   );
 }
 
