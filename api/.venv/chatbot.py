@@ -9,7 +9,7 @@ def create_completion_with_file(client, txt_file_path, user_prompt):
     completion = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+            {"role": "system", "content": "You are an academic assistant, specialized in addressing questions specifically related to the current course. Your responses are tailored to the course content and syllabus, and you provide sources from the course material. You focus solely on assisting with course-related queries."},
             {"role": "user", "content": file_content},
             {"role": "user", "content": user_prompt}
         ]
