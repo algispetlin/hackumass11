@@ -5,16 +5,9 @@ import HomePageBody from '../components/HomePageBody';
 function HomePage() {
   return (
     <>
-      <>
-        <HomeHeader courseName="CS220" />
-      </>
-      <> 
-        <HomePageBody  />
-      </>
+        <HomeHeader />
+        <HomePageBody />
     </>
-
-  
-
   );
 }
 
