@@ -9,7 +9,7 @@ function HomePage() {
         <HomeHeader courseName="CS220" />
       </>
       <> 
-        <HomePageBody />
+        <HomePageBody  />
       </>
     </>
 
