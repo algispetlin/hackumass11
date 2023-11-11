@@ -1,0 +1,17 @@
+.user-input {
+    padding-top: 30px;
+    display: flex;
+    flex-Direction: 'column';
+    background-color: rgb(126, 117, 117);
+    height: 100%;
+
+}
+
+.background {
+    background-color: black;
+    flex: 1;
+}
+
+.corner {
+    flex: 1;
+}

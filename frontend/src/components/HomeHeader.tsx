@@ -16,7 +16,11 @@ function HomeHeader(props: HomeHeaderProps) {
         <div className='course-name'>{props.courseName}</div>
         <div className='corner'>
         </div>
+<<<<<<< Updated upstream
         <><AccountMenu /></>
+=======
+        <>  <AccountMenu /></>
+>>>>>>> Stashed changes
     </div>
   );
 }
