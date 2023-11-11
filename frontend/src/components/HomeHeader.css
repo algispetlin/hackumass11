@@ -1,0 +1,19 @@
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: rgb(41, 41, 41);
+
+    height: 65px;
+}
+
+.course-name {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.corner {
+    flex: 1;
+}
