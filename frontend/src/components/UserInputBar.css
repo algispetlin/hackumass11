@@ -1,6 +1,16 @@
-.text-style {
-    color: white;
-    justify-content: center;
+.button-alignment {
+   justify-content: center;
+}
 
+.circle {
+    border-style: solid;
+    border-width: 20px;
+    border-radius: 50px;
+    border-color: white;
+    color: black;
+    background-color: white;
+  }
 
+.empty-space {
+    padding-bottom: 20px;
 }
