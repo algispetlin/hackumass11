@@ -118,9 +118,9 @@ def change_course_name():
 @app.route("/get-user", methods=["POST"])
 def get_user():
     data = request.get_json()
-    userId = data["userId"]
+    email = data["email"]
 
-    result = get_user_data(userId)
+    result = get_user_data(email)
     return result if result == 404 else jsonify(result), 200
 
 @app.route("/get-course", methods=["POST"])
