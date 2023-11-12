@@ -1,16 +1,15 @@
 from openai import OpenAI
-from highlight import highlight_text_in_pdf
+from highlight import update_highlight
+from bson.objectid import ObjectId
+from database import courses, users
 
-def create_completion_with_file(client, txt_file_path, user_prompt):
-    with open(txt_file_path, 'r', encoding='utf-8') as file:
-      file_content = file.read()
-
+def create_completion_with_file(client, file, user_prompt):
     # Create the completion request
     completion = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-            {"role": "user", "content": file_content},
+            {"role": "system", "content": "You are an academic assistant, specialized in addressing questions specifically related to the current course. Your responses are tailored to the course content and syllabus, and you provide sources from the course material. You focus solely on assisting with course-related queries."},
+            {"role": "user", "content": file},
             {"role": "user", "content": user_prompt}
         ]
     )
@@ -31,9 +30,21 @@ def extract(s, l, r):
       sentence += c
   return result
 
-def chatRespond(course, question, txt="in/220.txt", pdf="in/220.pdf"):
+def chatRespond(userId, courseId, question):
+  valid = True
+  try:
+    course = courses.find_one({"_id":ObjectId(courseId)})["name"]
+  except:
+    raise Exception(f"Invalid userId: {userId}")
+  
+  try:
+    txt = courses.find_one({"_id":ObjectId(courseId)})["syllabus"]["txt"]
+    pdf = courses.find_one({"_id":ObjectId(courseId)})["syllabus"]["pdf"]
+  except:
+    raise Exception(f"Invalid courseId: {courseId}")
+
   prompt = """
-  Using the uploaded syllabus for [%s], answer [%s]. Answer the question directly and succinctly and wrap in <>. 
+  Using the uploaded syllabus for [%s], answer [%s]. Answer the question and wrap in <>. 
 
   Afterward, in a new line, please quote directly, ensuring the quotes are formatted correctly without additional spaces, missed commas, or typographical errors.
 
@@ -52,9 +63,14 @@ def chatRespond(course, question, txt="in/220.txt", pdf="in/220.pdf"):
 
   The whole response should be in one line""" % (course, question)
 
-  completion = create_completion_with_file(OpenAI(), txt, prompt)
-  answer_quotes = completion.choices[0].message.content
-  answer = extract(answer_quotes, "<", ">")[0]
-  quotes = extract(answer_quotes, "{", "}")
+  try:
+    completion = create_completion_with_file(OpenAI(), txt, prompt)
+    answer_quotes = completion.choices[0].message.content
+    answer = extract(answer_quotes, "<", ">")[0]
+    quotes = extract(answer_quotes, "{", "}")
+  except:
+    valid = False
 
-  return {"answer": answer, "highlighted": highlight_text_in_pdf(pdf, quotes)}
+  update_highlight(userId, pdf, quotes)
+
+  return {"answer": answer, "valid": valid}

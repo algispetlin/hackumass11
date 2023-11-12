@@ -1,8 +1,14 @@
 import fitz
+import io
+import base64
+from database import users, update_user
 
-def highlight_text_in_pdf(pdf_path, texts_to_highlight, output_pdf_path="out/out.pdf"):
-    # Open the PDF
-    doc = fitz.open(pdf_path)
+def highlight_text_in_pdf(base64_pdf, texts_to_highlight):
+    pdf_data = base64.b64decode(base64_pdf)
+
+    pdf_stream = io.BytesIO(pdf_data)
+
+    doc = fitz.open(stream=pdf_stream, filetype="pdf")
 
     for text in texts_to_highlight:
         for page in doc:
@@ -12,7 +18,15 @@ def highlight_text_in_pdf(pdf_path, texts_to_highlight, output_pdf_path="out/out
             for inst in text_instances:
                 highlight = page.add_highlight_annot(inst)
 
-    # Save the highlighted PDF
-    doc.save(output_pdf_path)
+    output_stream = io.BytesIO()
+    doc.save(output_stream)
     doc.close()
-    return output_pdf_path
+
+    return base64.b64encode(output_stream.getvalue()).decode('utf-8')
+
+def update_highlight(userId, base64_pdf, texts_to_highlight):
+    # Create the highlighted PDF
+    highlighted_base64 = highlight_text_in_pdf(base64_pdf, texts_to_highlight)
+    # Update the user's previous highlighted PDF
+    update_user(userId, "prevHighlight", highlighted_base64)
+
