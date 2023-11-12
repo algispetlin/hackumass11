@@ -11,18 +11,14 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { error } from 'console';
 //TODO: change line 106 source button
 
-
 const theme = createTheme({
     palette: {
-        primary: {
-            main: '#232323',
-          },
+      primary: {main: '#232323'},
       secondary: {main:'#AF3030'} ,
     },
   });
 
 function UserInputBar() {
-
     const [inputText, setInputText] = useState(''); //user input
     const [storedText, setStoredText] = useState(''); //stored text for bot to read
     const [botText, setBotText] = useState(''); //bot reply
@@ -62,10 +58,6 @@ function UserInputBar() {
         <Box textAlign='center'><Button color='primary' variant="contained"  sx={{width: 200 }} endIcon={<FileOpenIcon />} onClick ={handleSubmit}>Source:</Button></Box>
       );
     }
-
-
-    
-   
   
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
       setInputText(event.target.value);
@@ -122,8 +114,5 @@ function UserInputBar() {
 
     );
 }
-  
-
 
 export default UserInputBar;
-export {};

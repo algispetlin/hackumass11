@@ -1,6 +1,6 @@
 export interface Question {
     courseId: string;
-    // userId: string;
+    userId: string;
 
     question: string;
 }
