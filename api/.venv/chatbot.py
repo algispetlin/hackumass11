@@ -6,7 +6,7 @@ from database import courses, users
 def create_completion_with_file(client, file, user_prompt):
     # Create the completion request
     completion = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4-32k",
         messages=[
             {"role": "system", "content": "You are an academic assistant, specialized in addressing questions specifically related to the current course. Your responses are tailored to the course content and syllabus, and you provide sources from the course material. You focus solely on assisting with course-related queries."},
             {"role": "user", "content": file},

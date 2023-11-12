@@ -59,15 +59,18 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
 
     const HiddenComponentBotReply = () => {
       return (
-        <div className='circle1'>
+        <>
+          <div className='circle1'>
             {botText}
-        </div>
+            {isVisible && <HiddenComponentBotReplyPDF />}
+          </div>
+        </>
       );
     }
 
     const HiddenComponentBotReplyPDF= () => {
       return (
-        <Box textAlign='center'><Button color='primary' variant="contained"  sx={{width: 200 }} endIcon={<FileOpenIcon />} onClick ={() => {
+        <Box textAlign='center' sx={{ marginTop: 1.8 }}><Button color='primary' variant="contained" onClick ={() => {
           if (pdf !== '') {
             fetch(`data:application/pdf;base64,${pdf}`)
               .then(res => res.blob())
@@ -77,7 +80,7 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
               }
             );
           }
-        }}>Source:</Button></Box>
+        }}><FileOpenIcon fontSize='small' /></Button></Box>
       );
     }
   
@@ -87,6 +90,7 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
 
     const handleKeyPress = (event: { key: string; }) => {
       if (event.key === 'Enter') {
+        setInputText((document.getElementById("questionInput")! as HTMLInputElement).value);
         handleSubmit(); 
         toggleVisibility();
       }
@@ -95,6 +99,7 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
     const handleSubmit = async () => {
       setStoredText(inputText);
       setInputText('');
+      setBotText('');
       
       let questionResponse = await post('/ask-question', { "courseId": props.course, "userId": props.user._id, "question": inputText });
       
@@ -118,11 +123,14 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
         {isVisible && <HiddenComponentBotReply />}
         {isVisible && <HiddenComponentUser />}
           <div style={{ flex: 1 }}></div>
-          {isVisible && <HiddenComponentBotReplyPDF />}
-          <div className='text-color'>
+          <div style={{ display: 'flex', alignItems: 'center', borderStyle: 'solid', borderRadius: 30, borderColor: '#AF0303', borderWidth: 2, height: 45, paddingLeft: 30, marginLeft: '20%', marginRight: '20%', marginBottom: 40 }}>
+            <input id="questionInput" onKeyDown={handleKeyPress} onChange={handleChange} style={{ width: '75%', borderStyle: 'none', backgroundColor: '#232323', color: '#D9D9D9', fontSize: 20 }} placeholder='Enter here...'></input>
+            <Button variant="contained" onClick={handleSubmit} sx={{color: "text.primary", borderRadius: 30, paddingLeft: 0, paddingRight: 0, marginLeft: 19.5, backgroundSize: 'contain' }}><SendIcon /></Button>
+          </div>
+          {/* <div className='text-color'>
             <TextField   
                 variant="filled" 
-                // sx={{color: "text.primary"}}
+                sx={{ width: '75%', borderRadius: 10 }}
                 type="text"
                 placeholder="Type something..."
                 value={inputText}
@@ -130,10 +138,7 @@ function UserInputBar(props: { user: UserSchema, course: string }) {
                 fullWidth
                 onKeyDown={handleKeyPress}
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit} sx={{color: "text.primary"}}>
-            Send
-          </Button>
-          </div>
+          </div> */}
           </Box>
       // </div> 
 
