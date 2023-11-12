@@ -3,6 +3,8 @@ import './HomeHeader.css';
 import AccountMenu from '../components/Profile';
 import CourseDrawer from '../components/Drawer';
 
+import { COLORS } from '../constants';
+
 const courses = ["CS 220", "CS 230", "CS 240", "CS 250", "STATS 515"];
 
 function HomeHeader() {
@@ -12,7 +14,7 @@ function HomeHeader() {
   }
 
   return (
-    <div className="home-header">
+    <div className = "home-header" /*style = {{backgroundColor: COLORS.primary}}*/>
         <div className='corner'>
           <CourseDrawer select={selectCourse} courses={courses} />
         </div>

@@ -8,14 +8,11 @@ interface CourseListProps {
     onClick: (index: number) => void;
 }
 
-const colorSelected = (bool: boolean) => bool ? "yellow" : "blue";
-
 function CourseList(props: CourseListProps) {
     return (
         <List>
           {props.courses.map((text, index) => (
             <ListItem key={text} disablePadding={true}>
-                <div>
                     <ListItemButton 
                         sx={{
                         "&.Mui-selected": {
@@ -38,7 +35,6 @@ function CourseList(props: CourseListProps) {
                     >
                     <ListItemText primary={text} />
                     </ListItemButton>
-                </div>
             </ListItem>
           ))}
         </List>
