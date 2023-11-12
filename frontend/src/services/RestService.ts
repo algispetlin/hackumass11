@@ -1,4 +1,4 @@
-import { Question, newAccount , newCourse , userCourseId , userId , courseId , changeSyllabus , courseIdName , changePermission, UserQuery} from "../models/ApiModel";
+import { Question, newAccount , newCourse , userCourseId , userId , courseId , changeSyllabus , courseIdName , changePermission, UserQuery, GetUser} from "../models/ApiModel";
 
 const FLASK_URL: string = 'http://localhost:5000';
 
@@ -10,7 +10,7 @@ export async function get(url: string) {
         .catch(error => console.log(error));
 }
 
-export async function post(url: string, payload?: Question | newAccount | newCourse | userCourseId | userId | courseId | changeSyllabus | courseIdName | changePermission | UserQuery) {
+export async function post(url: string, payload?: Question | newAccount | newCourse | userCourseId | userId | courseId | changeSyllabus | courseIdName | changePermission | UserQuery | GetUser) {
     const requestInfo = { 
         method: "POST", 
         headers: {

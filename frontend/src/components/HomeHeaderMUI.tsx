@@ -16,9 +16,10 @@ import AccountMenu from '../components/Profile';
 import CourseDrawer from '../components/Drawer';
 import NightModeToggle from "../components/NightModeToggle";
 
-import { Course } from '../models/ApiModel';
+import { Course, UserSchema } from '../models/ApiModel';
+import { useEffect } from 'react';
 
-export default function HomeHeaderMUI() {
+export default function HomeHeaderMUI(props: { user: UserSchema }) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -34,15 +35,6 @@ export default function HomeHeaderMUI() {
     setAnchorEl(null);
   };
 
-  const courses: Course[] = [
-    { _id: "876543567", name: "CS220", instructor: { name: "Marius Minea", id: "223567544"} }, 
-    { _id: "023654034", name: "CS230", instructor: { name: "Joe Chu", id: "367543766"} },
-    { _id: "945400565", name: "CS240", instructor: { name: "Peter Haas", id: "436578746"} },
-    { _id: "125634573", name: "CS250", instructor: { name: "David Barrington", id: "935667444"} },
-    { _id: "094959756", name: "JOURN250", instructor: { name: "Steve Fox", id: "245647845"} },
-    { _id: "709845805", name: "STATS515", instructor: { name: "Wei Zhu", id: "837249823"} } 
-  ];
-
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const selectCourse = (index: number) => {
     setSelectedIndex(index);
@@ -54,9 +46,11 @@ export default function HomeHeaderMUI() {
       </FormGroup>
       <AppBar position="static" sx={{backgroundColor: "background.primary"}}>
         <Toolbar>
-        <CourseDrawer select={selectCourse} courses={courses} />
+        <CourseDrawer select={selectCourse} user={props.user} />
           <Typography variant="h6" component="div" align="center" sx={{ flexGrow: 1, ml: 5, color: "text.primary"}}>
-          {courses[selectedIndex].name}
+            <div>
+              { props.user.courses! ? props.user.courses![selectedIndex].name : "Please Select a Course" }
+            </div>  
           </Typography>
           <NightModeToggle />
           {/* <AccountMenu /> */}

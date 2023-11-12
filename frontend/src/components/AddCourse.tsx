@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './AddCourse.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { ListItem, ListItemButton } from '@mui/material';
-import { Course } from '../models/ApiModel';
+import { Course, UserSchema } from '../models/ApiModel';
 import AddIcon from '@mui/icons-material/Add';
 
 import { post } from '../services/RestService';
@@ -27,16 +27,22 @@ const useWindowDimensions = () => {
     return windowDimensions;
 }
 
-
-function AddCourse() {
+function AddCourse(props: { user: UserSchema, update: () => void }) {
     const { windowHeight } = useWindowDimensions();    
     const [results, setResults] = useState([] as Course[]);
 
     useEffect(() => {
-        post('/course-search', { "userId": "65508cad9d5aad0ca635088f", "query": "" })
+        post('/course-search', { "userId": props.user._id!, "query": "" })
             .then(response => setResults(response))
             .catch(error => console.log(error));
     }, []);
+
+    const addCourse = async (course: Course) => {
+        await post('/add-course', { "userId": props.user._id, "courseId": course._id })
+        post('/course-search', { "userId": props.user._id!, "query": (document.getElementById("searchCourses")! as HTMLInputElement).value })
+            .then(response => { setResults(response); props.update(); })
+            .catch(error => console.log(error));
+    }
 
     return (
         <>
@@ -87,7 +93,7 @@ function AddCourse() {
                                 }
 
                                 }} 
-                                onClick={() => console.log(course)}
+                                onClick={async () => await addCourse(course)}
                             >
                             <div className="course-info">
                                 <div className="course-name">{course.name}</div>

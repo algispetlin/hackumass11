@@ -49,7 +49,7 @@ def user_exists(email):
 
 def new_user(name, email):
     if user_exists(email):
-        return 200
+        return get_user_data(email)
     try:
         users.insert_one({
             "_id": ObjectId(),
@@ -58,7 +58,7 @@ def new_user(name, email):
             "permission": "",
             "courses": []
         })
-        return 200
+        return get_user_data(email)
     except:
         return 400
 

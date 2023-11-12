@@ -31,7 +31,7 @@ def create_user():
 
     result = new_user(name, email)
 
-    return '', result
+    return ("", result) if (result == 400 or result == 404) else jsonify(result)
 
 @app.route("/create-course", methods=["POST"])
 def create_course():

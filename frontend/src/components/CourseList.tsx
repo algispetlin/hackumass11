@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './CourseList.css';
 import { ListItem, ListItemButton } from '@mui/material';
-import { Course } from '../models/ApiModel';
+import { Course, UserSchema } from '../models/ApiModel';
 
 import { createTheme, PaletteMode } from "@mui/material";
 import { useColorTheme } from "../theme/use-color-theme";
@@ -9,7 +9,7 @@ import { useColorTheme } from "../theme/use-color-theme";
 import Typography from '@mui/material/Typography';
 
 interface CourseListProps {
-    courses: Course[]; 
+    user: UserSchema; 
     selectedIndex: number;
     onClick: (index: number) => void;
 }
@@ -36,14 +36,13 @@ const useWindowDimensions = () => {
 
 function CourseList(props: CourseListProps) {
     const { windowHeight } = useWindowDimensions();
-    const value = useColorTheme();
 
     return (
         <>
             <div className="section-header">My Courses</div>
             <hr style={{ marginBottom: 0, borderColor: "#D9D9D9" }}/>
             <div className="course-list-container" style={{ height: 0.35 * windowHeight }}>
-                {props.courses.map((course, index) => (
+                {props.user.courses!.map((course, index) => (
                     <ListItem key={course._id} disablePadding={true}>
                         <div 
                             className="course-item"

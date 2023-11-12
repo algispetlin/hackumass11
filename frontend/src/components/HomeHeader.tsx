@@ -2,7 +2,7 @@ import React from 'react';
 import './HomeHeader.css';
 import AccountMenu from '../components/Profile';
 import CourseDrawer from '../components/Drawer';
-import { Course } from '../models/ApiModel';
+import { Course, UserSchema } from '../models/ApiModel';
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import NightModeToggle from "../components/NightModeToggle";
@@ -17,7 +17,7 @@ const courses: Course[] = [
   { _id: "709845805", name: "STATS515", instructor: { name: "Wei Zhu", id: "837249823"} } 
 ];
 
-function HomeHeader() {
+function HomeHeader(props: { user: UserSchema }) {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const selectCourse = (index: number) => {
     setSelectedIndex(index);
@@ -26,7 +26,7 @@ function HomeHeader() {
   return (
     <div className = "home-header" style={{ color: "#D9D9D9" }}>
         <div className='corner'>
-          <CourseDrawer select={selectCourse} courses={courses} />
+          <CourseDrawer select={selectCourse} user={ props.user } />
         </div>
         <div style={{ fontSize: 23, fontWeight: 650, color: "#D9D9D9" }}>{courses[selectedIndex].name}</div>
         <div className='corner'>

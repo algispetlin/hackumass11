@@ -44,12 +44,12 @@ export interface changePermission {
 }
 
 export interface UserSchema {
-    _id: string;
-    permissions: string;
-    courses: Course[];
+    _id?: string;
+    permissions?: string;
+    courses?: Course[];
     name: string;
     email: string;
-    prevHighlight: string;
+    prevHighlight?: string;
 }
 
 export interface Course {
@@ -64,4 +64,8 @@ export interface Course {
 export interface UserQuery {
     userId: string;
     query: string;
+}
+
+export interface GetUser {
+    email: string;
 }

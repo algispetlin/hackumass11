@@ -7,24 +7,39 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 import CourseList from './CourseList';
 import AddCourse from './AddCourse';
-import { Course } from '../models/ApiModel';
+import { Course, UserSchema } from '../models/ApiModel';
 
 import Typography from '@mui/material/Typography';
+import { post } from '../services/RestService';
+import { useEffect, useState } from 'react';
 
-export default function CourseDrawer(props: { select: (index: number) => void, courses: Course[] }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+export default function CourseDrawer(props: { select: (index: number) => void, user: UserSchema }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [currentUser, setCurrentUser] = useState(props.user);
+
+  useEffect(() => {
+      post('/get-user', { "email": props.user.email! })
+        .then((response: UserSchema) => setCurrentUser(response))
+        .catch(error => console.log(error));
+  }, []);
+
+  const updateUser = () => {
+    post('/get-user', { "email": props.user.email! })
+        .then((response: UserSchema) => setCurrentUser(response))
+        .catch(error => console.log(error));
+  }
 
   const list = () => (
     <div className="drawer-container">
       <ClickAwayListener onClickAway={() => { setIsOpen(false) } }>
       <Box sx={{ width: 300 }} role="presentation">
         <CourseList 
-          courses={props.courses}
+          user={ currentUser ? currentUser : props.user }
           selectedIndex={selectedIndex}
           onClick={(index: number) => { setSelectedIndex(index); props.select(index); }}
         />
-        <AddCourse />
+        <AddCourse user={ props.user } update={ updateUser }/>
       </Box>
       </ClickAwayListener>
     </div>
