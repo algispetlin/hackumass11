@@ -19,11 +19,11 @@ const NightModeToggle = () => {
         borderRadius: 25,
         height: 10,
         width: 200,
-        ml: 70,
+        mr: 2,
         p: 2,
       }}
     >
-      {mode} mode
+      {mode === "light" ? "Light" : "Dark"} Mode
       <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
         {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
