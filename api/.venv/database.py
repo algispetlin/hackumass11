@@ -44,7 +44,12 @@ def update_course(courseId, key, value):
     except:
         return 400
 
+def user_exists(email):
+    return users.count_documents({"email": email}) > 0
+
 def new_user(name, email):
+    if user_exists(email):
+        return 400
     try:
         users.insert_one({
             "_id": ObjectId(),
