@@ -49,13 +49,13 @@ export default function HomeHeaderMUI() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1}}>
       <FormGroup>
       </FormGroup>
-      <AppBar position="static">
+      <AppBar position="static" sx={{backgroundColor: "background.primary"}}>
         <Toolbar>
         <CourseDrawer select={selectCourse} courses={courses} />
-          <Typography variant="h6" component="div" align="center" sx={{ flexGrow: 1, ml: 5}}>
+          <Typography variant="h6" component="div" align="center" sx={{ flexGrow: 1, ml: 5, color: "text.primary"}}>
           {courses[selectedIndex].name}
           </Typography>
           <NightModeToggle />
