@@ -6,6 +6,7 @@ import { Course } from '../models/ApiModel';
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import NightModeToggle from "../components/NightModeToggle";
+import LogoutButton from './LogoutButton';
 
 const courses: Course[] = [
   { _id: "876543567", name: "CS220", instructor: { name: "Marius Minea", id: "223567544"} }, 
@@ -30,8 +31,9 @@ function HomeHeader() {
         <div style={{ fontSize: 23, fontWeight: 650, color: "#D9D9D9" }}>{courses[selectedIndex].name}</div>
         <div className='corner'>
         <NightModeToggle />
+        <LogoutButton />
         </div>
-        <AccountMenu />
+        
     </div>
   );
 }
