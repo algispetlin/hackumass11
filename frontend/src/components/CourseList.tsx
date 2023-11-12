@@ -27,7 +27,7 @@ const useWindowDimensions = () => {
     }, []);
   
     return windowDimensions;
-  }
+}
 
 function CourseList(props: CourseListProps) {
     const { windowHeight } = useWindowDimensions();

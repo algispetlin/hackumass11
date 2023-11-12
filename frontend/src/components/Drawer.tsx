@@ -31,7 +31,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
   return (
     <div>
       <div className="drawer-title" onClick={() => { setIsOpen(true) }}>
-        <IconButton sx={{ color: "#E5E5E5", mt: 0.2, ml: 1 }} aria-label="Menu">
+        <IconButton sx={{ color: "#E5E5E5", mb: 0.2, ml: 1 }} aria-label="Menu">
           <MenuIcon />
         </IconButton>
         Select Courses
