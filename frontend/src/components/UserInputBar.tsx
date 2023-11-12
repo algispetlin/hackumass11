@@ -9,14 +9,9 @@ import { post } from '../services/RestService';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { error } from 'console';
-//TODO: change line 106 source button
 
-const theme = createTheme({
-    palette: {
-      primary: {main: '#232323'},
-      secondary: {main:'#AF3030'} ,
-    },
-  });
+import Typography from '@mui/material/Typography';
+//TODO: change line 106 source button
 
 function UserInputBar() {
     const [inputText, setInputText] = useState(''); //user input
@@ -31,9 +26,24 @@ function UserInputBar() {
   
     const HiddenComponentInitial = () => {
       return (
-        <div className='circle2'>
-            Ask me a question!
-          </div>
+        <Box sx={{borderStyle: "solid",
+          borderWidth: "5px",
+          borderRadius: "50px",
+          borderColor: "background.primary",
+          color: "white",
+          backgroundColor: "background.secondary",
+          border: "3px solid background.secondary",
+          margin: "auto",
+          width: "50%",
+          padding: "10px",
+          textAlign: "center"}}>
+          <Typography sx={{ color: "text.primary"}}>
+          Ask me a question!
+          </Typography>
+        </Box>
+        // <div className='circle2'>
+        //     Ask me a question!
+        //   </div>
       )
     };
 
@@ -86,9 +96,11 @@ function UserInputBar() {
 
   
     return (
-      <ThemeProvider theme={theme}>
-      {
-      <div className='container'>
+      // <div className='container'>
+      <Box sx={{display: "flex", 
+        flexDirection: "column",
+        backgroundColor: "background.secondary",
+        flex: "1", color: "background.secondary"}}>
         {!isVisible && <HiddenComponentInitial />}
         {isVisible && <HiddenComponentBotReply />}
         {isVisible && <HiddenComponentUser />}
@@ -97,7 +109,7 @@ function UserInputBar() {
           <div className='text-color'>
             <TextField   
                 variant="filled" 
-                color= 'primary' focused
+                sx={{color: "background.secondary"}}
                 type="text"
                 placeholder="Type something..."
                 value={inputText}
@@ -105,13 +117,12 @@ function UserInputBar() {
                 fullWidth
                 onKeyDown={handleKeyPress}
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit} color='secondary'>
+            <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit} sx={{color: "text.primary"}}>
             Send
           </Button>
           </div>
-      </div> 
-      }
-      </ThemeProvider>
+          </Box>
+      // </div> 
 
     );
 }

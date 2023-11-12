@@ -52,15 +52,15 @@ function CourseList(props: CourseListProps) {
                             <ListItemButton 
                                 sx={{
                                 "&.Mui-focusVisible": {
-                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default",
+                                    backgroundColor: props.selectedIndex === index ? "background.primary" : "background.default",
                                     color: "white"
                                 },
                                 ":hover": {
-                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default",
+                                    backgroundColor: props.selectedIndex === index ? "background.primary" : "background.default",
                                     color: "white"
                                 },
                                 "&.MuiListItemButton-root": {
-                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default"
+                                    backgroundColor: props.selectedIndex === index ? "background.primary" : "background.default"
                                 }
 
                                 }} 
