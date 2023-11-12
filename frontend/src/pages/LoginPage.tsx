@@ -1,10 +1,10 @@
-import React from 'react';
-import LoginSignup from '../components/Login/LoginSignup'
 
+import React from 'react';
+import LoginButton from '../components/LoginButton';
 function LoginPage() {
   return (
     <div>
-      <LoginSignup/>
+      <LoginButton />
     </div>
   );
 }
