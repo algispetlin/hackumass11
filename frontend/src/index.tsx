@@ -4,15 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeContextProvider } from "./theme/ThemeContextProvider";
+import {Auth0Provider} from '@auth0/auth0-react'
+
+const domain = "dev-napcdqop1e3jgfuq.us.auth0.com";
+const clientID = "4F8LUgsLCMFCHPAD3hbQwywCFM1geYpd";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ThemeContextProvider>
-      <App />
-    </ThemeContextProvider>
+<Auth0Provider
+      domain = {domain} clientId = {clientID} authorizationParams={{
+        redirect_uri: "http://localhost:3000/home"
+    }}>
+    <App />
+    </Auth0Provider>
   </React.StrictMode>
 );
 
