@@ -1,24 +1,20 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
+import { post } from "../services/RestService";
 
-const Profile = () => {
+export const AuthenticateUser = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate();
+
+  if (!isLoading && !isAuthenticated) navigate('/login')
 
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return <></>;
+  } else {
+    post('/create-user', { "name": user!.name as string, "email": user!.email as string })
+      .catch(() => { navigate('/login') })
+
+    return <></>;
   }
-  console.log(user);
-
-  return (
-    (
-      <div>
-        <img src={user!.picture} alt={user!.name} />
-        <h2>{user!.name}</h2>
-        <p>{user!.email}</p>
-      </div>
-    )
-  );
 };
-
-export default Profile;
-export {};
