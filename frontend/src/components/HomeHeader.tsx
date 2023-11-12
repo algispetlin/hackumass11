@@ -3,7 +3,8 @@ import './HomeHeader.css';
 import AccountMenu from '../components/Profile';
 import CourseDrawer from '../components/Drawer';
 
-import { COLORS } from '../constants';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import NightModeToggle from "../components/NightModeToggle";
 
 const courses = ["CS 220", "CS 230", "CS 240", "CS 250", "STATS 515"];
 
@@ -20,7 +21,7 @@ function HomeHeader() {
         </div>
         <div className='course-name'>{courses[selectedIndex]}</div>
         <div className='corner'>
-
+        <NightModeToggle />
         </div>
         <AccountMenu />
     </div>

@@ -11,11 +11,9 @@ function HomePage() {
   return (
     
     <ThemeProvider theme={theme}>
-    <>
         <CssBaseline />
-        <HomeHeader />
-        <HomePageBody />
-    </></ThemeProvider>
+        <NightModeToggle />
+    </ThemeProvider>
   );
 }
 
