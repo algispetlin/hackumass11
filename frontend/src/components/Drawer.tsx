@@ -7,8 +7,9 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 import CourseList from './CourseList';
 import AddCourse from './AddCourse';
+import { Course } from '../models/ApiModel';
 
-export default function CourseDrawer(props: { select: (index: number) => void, courses: string[] }) {
+export default function CourseDrawer(props: { select: (index: number) => void, courses: Course[] }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
@@ -33,7 +34,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
         <IconButton sx={{ color: "#E5E5E5", mt: 0.2, ml: 1 }} aria-label="Menu">
           <MenuIcon />
         </IconButton>
-        Select Classes
+        Select Courses
       </div>
       <div style={{ flex: 1 }}></div>
       <Drawer
