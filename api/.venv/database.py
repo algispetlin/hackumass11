@@ -49,7 +49,7 @@ def user_exists(email):
 
 def new_user(name, email):
     if user_exists(email):
-        return 400
+        return 200
     try:
         users.insert_one({
             "_id": ObjectId(),
