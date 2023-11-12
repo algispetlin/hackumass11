@@ -5,7 +5,9 @@ const FLASK_URL: string = 'http://localhost:5000';
 export async function get(url: string) {
     const requestInfo = { method: "GET" };
     
-    return await fetch(FLASK_URL + url, requestInfo).then(response => response.json());
+    return await fetch(FLASK_URL + url, requestInfo)
+        .then(response => response.json())
+        .catch(error => console.log(error));
 }
 
 export async function post(url: string, payload?: Question) {
@@ -18,5 +20,7 @@ export async function post(url: string, payload?: Question) {
         body: payload ? JSON.stringify(payload) : null
     };
 
-    return await fetch(FLASK_URL + url, requestInfo).then(response => response.json());
+    return await fetch(FLASK_URL + url, requestInfo)
+        .then(response => response.json())
+        .catch(error => console.log(error));
 }

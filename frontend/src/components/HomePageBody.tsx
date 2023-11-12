@@ -7,12 +7,7 @@ import { COLORS } from '../constants';
 function HomePageBody() {
 
   return (
-    <div className="user-input" /*style = {{backgroundColor: COLORS.secondary}}*/>
-
-        <div ><UserInputBar /></div>
-
-
-    </div>
+    <UserInputBar />
   );
 }
 
