@@ -35,7 +35,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: "*",
-                element: <Navigate to="/home" />
+                element: <Authorize />
             }
         ]
     }
