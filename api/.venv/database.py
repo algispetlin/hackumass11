@@ -7,6 +7,23 @@ db = client["db"]
 users = db["Users"]
 courses = db["Courses"]
 
+def course_substring_search(userId, query):
+    try:
+        regex_query = {"name": {"$regex": query, "$options": "i"}}
+        results = courses.find(regex_query)
+
+        user_courses = users.find_one({"_id": ObjectId(userId)})["courses"]
+        filtered_results = []
+
+        for course in results:
+            if course not in user_courses:
+                course['_id'] = str(course['_id'])
+                filtered_results.append(course)
+
+        return filtered_results
+    except:
+        return 400
+
 def update_user(userId, key, value):
     try:
         users.update_one({
