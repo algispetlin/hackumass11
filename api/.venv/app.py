@@ -29,9 +29,9 @@ def create_user():
     name = data["name"]
     email = data["email"]
 
-    new_user(name, email)
+    result = new_user(name, email)
 
-    return '', 200
+    return '', result
 
 @app.route("/create-course", methods=["POST"])
 def create_course():
@@ -43,32 +43,35 @@ def create_course():
         syllabus = base64.b64encode(pdf.read()).decode('utf-8')
     txt = extract_text(data["syllabus"])
 
-    create_new_course(name, userId, syllabus, txt)
+    result = create_new_course(name, userId, syllabus, txt)
 
-    return '', 200
+    return '', result
 
 @app.route("/delete-user", methods=["POST"])
 def delete_user():
     data = request.get_json()
-    delete_user_data(data["userId"])
 
-    return '', 200
+    result = delete_user_data(data["userId"])
+
+    return '', result
 
 @app.route("/delete-course", methods=["POST"])
 def delete_course():
     data = request.get_json()
-    delete_course_data(data["courseId"])
 
-    return '', 200
+    result = delete_course_data(data["courseId"])
+
+    return '', result
 
 @app.route("/set-permission", methods=["POST"])
 def set_permission():
     data = request.get_json()
     userId = data["userId"]
     permission = data["permission"]
-    update_user(userId, "permission", permission)
+    
+    result = update_user(userId, "permission", permission)
 
-    return '', 200
+    return '', result
 
 @app.route("/add-course", methods=["POST"])
 def add_course():
@@ -86,9 +89,9 @@ def remove_course():
     userId = data["userId"]
     courseId = data["courseId"]
 
-    remove_course_data(userId, courseId)
+    result = remove_course_data(userId, courseId)
 
-    return '', 200
+    return '', result
 
 @app.route("/change-syllabus", methods=["POST"])
 def change_syllabus():
@@ -98,25 +101,27 @@ def change_syllabus():
         syllabus = base64.b64encode(pdf.read()).decode('utf-8')
     txt = extract_text(data["syllabus"])
 
-    change_syllabi(courseId, syllabus, txt)
+    result = change_syllabi(courseId, syllabus, txt)
 
-    return '', 200
+    return '', result
     
 @app.route("/change-course-name", methods=["POST"])
 def change_course_name():
     data = request.get_json()
     courseId = data["courseId"]
     name = data["name"]
-    update_course(courseId, "name", name)
 
-    return "", 200
+    result = update_course(courseId, "name", name)
+
+    return "", result
 
 @app.route("/get-user", methods=["POST"])
 def get_user():
     data = request.get_json()
     userId = data["userId"]
 
-    return jsonify(get_user_data(userId)), 200
+    result = get_user_data(userId)
+    return result if result == 404 else jsonify(result), 200
 
 @app.route("/get-course", methods=["POST"])
 def get_course():
@@ -133,7 +138,6 @@ def course_search():
 
     result = course_substring_search(userId, query)
     return result if result == 400 else jsonify(course_substring_search(userId, query))
-
 
 if __name__ == "__main__":
     app.run()

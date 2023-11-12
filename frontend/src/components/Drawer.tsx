@@ -9,6 +9,8 @@ import CourseList from './CourseList';
 import AddCourse from './AddCourse';
 import { Course } from '../models/ApiModel';
 
+import Typography from '@mui/material/Typography';
+
 export default function CourseDrawer(props: { select: (index: number) => void, courses: Course[] }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -16,7 +18,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
   const list = () => (
     <div className="drawer-container">
       <ClickAwayListener onClickAway={() => { setIsOpen(false) } }>
-      <Box sx={{ width: 300 }} role="presentation">
+      <Box sx={{ color: "text.primary", width: 300 }} role="presentation">
         <CourseList 
           courses={props.courses}
           selectedIndex={selectedIndex}
@@ -31,10 +33,13 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
   return (
     <div>
       <div className="drawer-title" onClick={() => { setIsOpen(true) }}>
-        <IconButton sx={{ color: "#E5E5E5", mt: 0.2, ml: 1 }} aria-label="Menu">
+        <IconButton sx={{ color: "text.primary", mb: 0.2, ml: 1 }} aria-label="Menu">
           <MenuIcon />
         </IconButton>
+        <Typography variant="h6" component="div" align="center" sx={{ flexGrow: 1, color: "text.primary"}}>
         Select Courses
+          </Typography>
+        
       </div>
       <div style={{ flex: 1 }}></div>
       <Drawer

@@ -1,7 +1,6 @@
 export interface Question {
     courseId: string;
     userId: string;
-
     question: string;
 }
 
@@ -46,10 +45,11 @@ export interface changePermission {
 
 export interface UserSchema {
     _id: string;
-    permissions: string[];
+    permissions: string;
     courses: Course[];
     name: string;
     email: string;
+    prevHighlight: string;
 }
 
 export interface Course {

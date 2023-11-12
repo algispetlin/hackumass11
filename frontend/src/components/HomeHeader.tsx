@@ -23,7 +23,7 @@ function HomeHeader() {
   }
 
   return (
-    <div className = "home-header">
+    <div className = "home-header" style={{ color: "#D9D9D9" }}>
         <div className='corner'>
           <CourseDrawer select={selectCourse} courses={courses} />
         </div>

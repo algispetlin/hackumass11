@@ -25,60 +25,86 @@ def course_substring_search(userId, query):
         return 400
 
 def update_user(userId, key, value):
-    users.update_one({
-        "_id": ObjectId(userId)},
-        {"$set": {key: value}
-    })
+    try:
+        users.update_one({
+            "_id": ObjectId(userId)},
+            {"$set": {key: value}
+        })
+        return 200
+    except:
+        return 400
 
 def update_course(courseId, key, value):
-    courses.update_one({
-        "_id": ObjectId(courseId)},
-        {"$set": {key: value}
-    })
+    try:
+        courses.update_one({
+            "_id": ObjectId(courseId)},
+            {"$set": {key: value}
+        })
+        return 200
+    except:
+        return 400
 
 def new_user(name, email):
-    users.insert_one({
-        "_id": ObjectId(),
-        "name": name,
-        "email": email,
-        "permission": "",
-        "courses": []
-    })
+    try:
+        users.insert_one({
+            "_id": ObjectId(),
+            "name": name,
+            "email": email,
+            "permission": "",
+            "courses": []
+        })
+        return 200
+    except:
+        return 400
 
 def delete_user_data(userId):
-    users.delete_one({"_id": ObjectId(userId)})
+    try:
+        users.delete_one({"_id": ObjectId(userId)})
+        return 200
+    except:
+        return 400
 
 def create_new_course(name, userId, pdf, txt):
-    courses.insert_one({
-        "_id": ObjectId(),
-        "name": name,
-        "instructor": {
-            "name": users.find_one({"_id":ObjectId(userId)})["name"],
-            "instructor_id": userId 
-        },
-        "syllabus": {
-            "pdf": pdf,
-            "txt": txt
-        }
-    })
+    try:
+        courses.insert_one({
+            "_id": ObjectId(),
+            "name": name,
+            "instructor": {
+                "name": users.find_one({"_id":ObjectId(userId)})["name"],
+                "instructor_id": userId 
+            },
+            "syllabus": {
+                "pdf": pdf,
+                "txt": txt
+            }
+        })
+        return 200
+    except:
+        return 400
 
 def delete_course_data(courseId):
-    courses.delete_one({"_id": ObjectId(courseId)})
+    try:
+        courses.delete_one({"_id": ObjectId(courseId)})
+        return 200
+    except:
+        return 400
 
 def change_syllabi(courseId, pdf, txt):
-    courses.update_one({
-        "_id": ObjectId(courseId)},
-        {"$set": {"syllabus": {"pdf": pdf, "txt": txt}}
-    })
+    try:
+        courses.update_one({
+            "_id": ObjectId(courseId)},
+            {"$set": {"syllabus": {"pdf": pdf, "txt": txt}}
+        })
+        return 200
+    except:
+        return 400
 
 def add_new_course(userId, courseId):
-    user = users.find_one({"_id": ObjectId(userId)})
-    if not user:
-        raise ValueError("User not found")
-    
-    course = courses.find_one({"_id": ObjectId(courseId)})
-    if not course:
-        raise ValueError("Course not found")
+    try:
+        user = users.find_one({"_id": ObjectId(userId)})
+        course = courses.find_one({"_id": ObjectId(courseId)})
+    except:
+        return 400
 
     user_courses = user["courses"]
     if courseId not in user_courses:
@@ -89,13 +115,11 @@ def add_new_course(userId, courseId):
         return 400
     
 def remove_course_data(userId, courseId):
-    user = users.find_one({"_id": ObjectId(userId)})
-    if not user:
-        raise ValueError("User not found")
-    
-    course = courses.find_one({"_id": ObjectId(courseId)})
-    if not course:
-        raise ValueError("Course not found")
+    try:
+        user = users.find_one({"_id": ObjectId(userId)})
+        course = courses.find_one({"_id": ObjectId(courseId)})
+    except:
+        return 400
 
     user_courses = user["courses"]
     if course in user_courses:
@@ -106,13 +130,19 @@ def remove_course_data(userId, courseId):
         return 400
 
 def get_user_data(userId):
-    result = users.find_one({"_id":ObjectId(userId)})
-    result["_id"] = userId
-    for course in result["courses"]:
-        course["_id"] = str(course["_id"])
-    return result
+    try:
+        result = users.find_one({"_id":ObjectId(userId)})
+        result["_id"] = userId
+        for course in result["courses"]:
+            course["_id"] = str(course["_id"])
+        return result
+    except:
+        return 404
 
 def get_course_data(courseId):
-    result = courses.find_one({"_id":ObjectId(courseId)})
-    result["_id"] = courseId
-    return result
+    try:
+        result = courses.find_one({"_id":ObjectId(courseId)})
+        result["_id"] = courseId
+        return result
+    except:
+        return 404
