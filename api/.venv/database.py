@@ -13,14 +13,23 @@ def update_user(userId, key, value):
         {"$set": {key: value}
     })
 
+def update_course(courseId, key, value):
+    courses.update_one({
+        "_id": ObjectId(courseId)},
+        {"$set": {key: value}
+    })
+
 def new_user(name, email):
     users.insert_one({
         "_id": ObjectId(),
         "name": name,
         "email": email,
-        "permissions": [],
+        "permission": "",
         "course": []
     })
+
+def delete_user_data(userId):
+    users.delete_one({"_id": ObjectId(userId)})
 
 def create_new_course(name, userId, pdf, txt):
     courses.insert_one({
@@ -35,6 +44,9 @@ def create_new_course(name, userId, pdf, txt):
             "txt": txt
         }
     })
+
+def delete_course_data(courseId):
+    courses.delete_one({"_id": ObjectId(courseId)})
 
 def change_syllabi(courseId, pdf, txt):
     courses.update_one({
@@ -54,6 +66,23 @@ def add_new_course(userId, courseId):
     user_courses = user.get("courses", [])
     if courseId not in user_courses:
         user_courses.append(course)
+        users.update_one({"_id": ObjectId(userId)}, {"$set": {"courses": user_courses}})
+        return 200
+    else:
+        return 400
+    
+def remove_course_data(userId, courseId):
+    user = users.find_one({"_id": ObjectId(userId)})
+    if not user:
+        raise ValueError("User not found")
+    
+    course = courses.find_one({"_id": ObjectId(courseId)})
+    if not course:
+        raise ValueError("Course not found")
+
+    user_courses = user.get("courses", [])
+    if courseId in user_courses:
+        user_courses.remove(course)
         users.update_one({"_id": ObjectId(userId)}, {"$set": {"courses": user_courses}})
         return 200
     else:
