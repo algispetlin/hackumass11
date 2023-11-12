@@ -129,10 +129,10 @@ def remove_course_data(userId, courseId):
     else:
         return 400
 
-def get_user_data(userId):
+def get_user_data(email):
     try:
-        result = users.find_one({"_id":ObjectId(userId)})
-        result["_id"] = userId
+        result = users.find_one({"email":email})
+        result["_id"] = str(result["_id"])
         for course in result["courses"]:
             course["_id"] = str(course["_id"])
         return result
