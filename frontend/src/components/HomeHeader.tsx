@@ -4,6 +4,9 @@ import AccountMenu from '../components/Profile';
 import CourseDrawer from '../components/Drawer';
 import { Course } from '../models/ApiModel';
 
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import NightModeToggle from "../components/NightModeToggle";
+
 const courses: Course[] = [
   { _id: "876543567", name: "CS220", instructor: { name: "Marius Minea", id: "223567544"} }, 
   { _id: "023654034", name: "CS230", instructor: { name: "Joe Chu", id: "367543766"} },
@@ -26,7 +29,7 @@ function HomeHeader() {
         </div>
         <div style={{ fontSize: 23, fontWeight: 650, color: "#D9D9D9" }}>{courses[selectedIndex].name}</div>
         <div className='corner'>
-
+        <NightModeToggle />
         </div>
         <AccountMenu />
     </div>
