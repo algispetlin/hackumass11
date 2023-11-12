@@ -33,32 +33,6 @@ def create_user():
 
     return '', 200
 
-@app.route("/delete-user", methods=["POST"])
-def delete_user():
-    data = request.get_json()
-    delete_user_data(data["userId"])
-
-    return '', 200
-
-@app.route("/set-permission", methods=["POST"])
-def set_permission():
-    data = request.get_json()
-    userId = data["userId"]
-    permission = data["permission"]
-    update_user(userId, "permission", permission)
-
-    return '', 200
-
-@app.route("remove-course", methods=["POST"])
-def remove_course():
-    data = request.get_json()
-    userId = data["userId"]
-    courseId = data["courseId"]
-
-    remove_course_data(userId, courseId)
-
-    return '', 200
-
 @app.route("/create-course", methods=["POST"])
 def create_course():
     data = request.get_json()
@@ -73,10 +47,46 @@ def create_course():
 
     return '', 200
 
+@app.route("/delete-user", methods=["POST"])
+def delete_user():
+    data = request.get_json()
+    delete_user_data(data["userId"])
+
+    return '', 200
+
 @app.route("/delete-course", methods=["POST"])
 def delete_course():
     data = request.get_json()
     delete_course_data(data["courseId"])
+
+    return '', 200
+
+@app.route("/set-permission", methods=["POST"])
+def set_permission():
+    data = request.get_json()
+    userId = data["userId"]
+    permission = data["permission"]
+    update_user(userId, "permission", permission)
+
+    return '', 200
+
+@app.route("/add-course", methods=["POST"])
+def add_course():
+    data = request.get_json()
+    userId = data["userId"]
+    courseId = data["courseId"]
+
+    result = add_new_course(userId, courseId)
+
+    return "", result
+
+@app.route("/remove-course", methods=["POST"])
+def remove_course():
+    data = request.get_json()
+    userId = data["userId"]
+    courseId = data["courseId"]
+
+    remove_course_data(userId, courseId)
 
     return '', 200
 
@@ -100,16 +110,6 @@ def change_course_name():
     update_course(courseId, "name", name)
 
     return "", 200
-
-@app.route("/add-course", methods=["POST"])
-def add_course():
-    data = request.get_json()
-    userId = data["userId"]
-    courseId = data["courseId"]
-
-    result = add_new_course(userId, courseId)
-
-    return "", result
 
 @app.route("/get-user", methods=["POST"])
 def get_user():

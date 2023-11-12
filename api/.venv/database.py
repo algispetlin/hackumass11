@@ -25,7 +25,7 @@ def new_user(name, email):
         "name": name,
         "email": email,
         "permission": "",
-        "course": []
+        "courses": []
     })
 
 def delete_user_data(userId):
@@ -63,7 +63,7 @@ def add_new_course(userId, courseId):
     if not course:
         raise ValueError("Course not found")
 
-    user_courses = user.get("courses", [])
+    user_courses = user["courses"]
     if courseId not in user_courses:
         user_courses.append(course)
         users.update_one({"_id": ObjectId(userId)}, {"$set": {"courses": user_courses}})
@@ -80,8 +80,8 @@ def remove_course_data(userId, courseId):
     if not course:
         raise ValueError("Course not found")
 
-    user_courses = user.get("courses", [])
-    if courseId in user_courses:
+    user_courses = user["courses"]
+    if course in user_courses:
         user_courses.remove(course)
         users.update_one({"_id": ObjectId(userId)}, {"$set": {"courses": user_courses}})
         return 200
