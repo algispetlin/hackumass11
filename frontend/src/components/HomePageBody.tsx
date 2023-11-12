@@ -7,12 +7,7 @@ import UserInputBar from '../components/UserInputBar';
 function HomePageBody() {
 
   return (
-    <div className="user-input">
-
-        <div ><UserInputBar /></div>
-
-
-    </div>
+    <UserInputBar />
   );
 }
 
