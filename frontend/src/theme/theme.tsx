@@ -1,5 +1,5 @@
 import { PaletteMode } from "@mui/material";
-import { amber, deepOrange, grey, deepPurple, lightBlue } from "@mui/material/colors";
+import { amber, deepOrange, grey, deepPurple, lightBlue, red } from "@mui/material/colors";
 
 const theme = {
   palette: {
@@ -18,6 +18,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           background: {
             default: lightBlue[200],
             paper: lightBlue[200],
+            secondary: lightBlue[400]
           },
           text: {
             primary: grey[900],
@@ -26,11 +27,12 @@ export const getDesignTokens = (mode: PaletteMode) => ({
         }
       : {
           // palette values for dark mode
-          primary: deepPurple,
-          divider: deepPurple[200],
+          primary: red,
+          divider: grey[800],
           background: {
-            default: deepPurple[900],
-            paper: deepPurple[900],
+            default: grey[700],
+            paper: red[800],
+            secondary: grey[900]
           },
           text: {
             primary: "#fff",
