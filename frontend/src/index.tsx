@@ -14,12 +14,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <ThemeContextProvider>
 <Auth0Provider
       domain = {domain} clientId = {clientID} authorizationParams={{
         redirect_uri: "http://localhost:3000/home"
     }}>
     <App />
     </Auth0Provider>
+    </ThemeContextProvider>
   </React.StrictMode>
 );
 
