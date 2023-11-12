@@ -115,7 +115,7 @@ function UserInputBar(props: { user: UserSchema }) {
       <Box sx={{display: "flex", 
         flexDirection: "column",
         backgroundColor: "background.secondary",
-        flex: "1", color: "background.secondary"}}>
+        flex: "1100", color: "text.primary"}}>
         {!isVisible && <HiddenComponentInitial />}
         {isVisible && <HiddenComponentBotReply />}
         {isVisible && <HiddenComponentUser />}
@@ -124,7 +124,7 @@ function UserInputBar(props: { user: UserSchema }) {
           <div className='text-color'>
             <TextField   
                 variant="filled" 
-                sx={{color: "background.secondary"}}
+                // sx={{color: "text.primary"}}
                 type="text"
                 placeholder="Type something..."
                 value={inputText}
