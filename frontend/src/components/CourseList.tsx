@@ -3,6 +3,11 @@ import './CourseList.css';
 import { ListItem, ListItemButton } from '@mui/material';
 import { Course } from '../models/ApiModel';
 
+import { createTheme, PaletteMode } from "@mui/material";
+import { useColorTheme } from "../theme/use-color-theme";
+
+import Typography from '@mui/material/Typography';
+
 interface CourseListProps {
     courses: Course[]; 
     selectedIndex: number;
@@ -31,6 +36,7 @@ const useWindowDimensions = () => {
 
 function CourseList(props: CourseListProps) {
     const { windowHeight } = useWindowDimensions();
+    const value = useColorTheme();
 
     return (
         <>
@@ -41,26 +47,38 @@ function CourseList(props: CourseListProps) {
                     <ListItem key={course._id} disablePadding={true}>
                         <div 
                             className="course-item"
-                            style={{ backgroundColor: props.selectedIndex === index ? "#AF3030" : "rgba(0, 0, 0, 0)" }}
+                            // style={{ backgroundColor: props.selectedIndex === index ? "#AF3030" : "rgba(0, 0, 0, 0)" }}
                         >
                             <ListItemButton 
                                 sx={{
                                 "&.Mui-focusVisible": {
-                                    backgroundColor: "#F15C5C",
+                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default",
                                     color: "white"
                                 },
                                 ":hover": {
-                                    backgroundColor: "#CD5858",
+                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default",
                                     color: "white"
+                                },
+                                "&.MuiListItemButton-root": {
+                                    backgroundColor: props.selectedIndex === index ? "background.paper" : "background.default"
                                 }
 
                                 }} 
                                 onClick={() => props.onClick(index)}
                             >
-                            <div className="course-info">
+                                <Typography variant="h6" component="div" align="left" sx={{ color: "text.primary", display: "flex", flexDirection: "column"}}>
+                        
+                                <Typography sx={{fontWeight: "600", fontSize: "large"}}>
+                                    {course.name}
+                                    </Typography>
+                                    <Typography sx={{fontWeight: "600", fontSize: "small"}}>
+                                    {course.instructor.name}
+                                    </Typography>
+                                </Typography>
+                            {/* <div className="course-info">
                                 <div className="course-name">{course.name}</div>
                                 <div className="course-instructor">{course.instructor.name}</div>
-                            </div>
+                            </div> */}
                             </ListItemButton>
                         </div>
                     </ListItem>

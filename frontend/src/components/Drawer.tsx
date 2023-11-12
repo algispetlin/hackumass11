@@ -18,7 +18,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
   const list = () => (
     <div className="drawer-container">
       <ClickAwayListener onClickAway={() => { setIsOpen(false) } }>
-      <Box sx={{ color: "text.primary", width: 300 }} role="presentation">
+      <Box sx={{ width: 300 }} role="presentation">
         <CourseList 
           courses={props.courses}
           selectedIndex={selectedIndex}
@@ -43,6 +43,12 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
       </div>
       <div style={{ flex: 1 }}></div>
       <Drawer
+      PaperProps={{
+        sx: {
+          backgroundColor: "background.secondary",
+          color: "red",
+        }
+      }}
         anchor={'left'}
         open={isOpen}
         onClose={() => { setIsOpen(false) }}
