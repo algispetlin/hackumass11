@@ -19,7 +19,7 @@ import NightModeToggle from "../components/NightModeToggle";
 import { Course, UserSchema } from '../models/ApiModel';
 import { useEffect } from 'react';
 
-export default function HomeHeaderMUI(props: { user: UserSchema }) {
+export default function HomeHeaderMUI(props: { user: UserSchema, updateCourse: (id: string) => void }) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -36,8 +36,9 @@ export default function HomeHeaderMUI(props: { user: UserSchema }) {
   };
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const selectCourse = (index: number) => {
+  const selectCourse = (index: number, id: string) => {
     setSelectedIndex(index);
+    props.updateCourse(id);
   }
 
   return (

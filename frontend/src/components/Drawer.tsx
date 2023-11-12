@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import { post } from '../services/RestService';
 import { useEffect, useState } from 'react';
 
-export default function CourseDrawer(props: { select: (index: number) => void, user: UserSchema }) {
+export default function CourseDrawer(props: { select: (index: number, id: string) => void, user: UserSchema }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [currentUser, setCurrentUser] = useState(props.user);
@@ -37,7 +37,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, u
         <CourseList 
           user={ currentUser ? currentUser : props.user }
           selectedIndex={selectedIndex}
-          onClick={(index: number) => { setSelectedIndex(index); props.select(index); }}
+          onClick={(index: number, id: string) => { setSelectedIndex(index); props.select(index, id); }}
         />
         <AddCourse user={ props.user } update={ updateUser }/>
       </Box>

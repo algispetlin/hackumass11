@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 interface CourseListProps {
     user: UserSchema; 
     selectedIndex: number;
-    onClick: (index: number) => void;
+    onClick: (index: number, id: string) => void;
 }
 
 const getWindowDimensions = () => {
@@ -63,7 +63,7 @@ function CourseList(props: CourseListProps) {
                                 }
 
                                 }} 
-                                onClick={() => props.onClick(index)}
+                                onClick={() => props.onClick(index, course._id)}
                             >
                                 <Typography variant="h6" component="div" align="left" sx={{ color: "text.primary", display: "flex", flexDirection: "column"}}>
                         

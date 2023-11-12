@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { UserSchema } from '../models/ApiModel';
 //TODO: change line 106 source button
 
-function UserInputBar(props: { user: UserSchema }) {
+function UserInputBar(props: { user: UserSchema, course: string }) {
     const [inputText, setInputText] = useState(''); //user input
     const [storedText, setStoredText] = useState(''); //stored text for bot to read
     const [botText, setBotText] = useState(''); //bot reply
@@ -95,10 +95,8 @@ function UserInputBar(props: { user: UserSchema }) {
     const handleSubmit = async () => {
       setStoredText(inputText);
       setInputText('');
-
-      console.log(props.user)
       
-      let questionResponse = await post('/ask-question', { "courseId": "65508f019d5aad0ca6350894", "userId": props.user._id, "question": inputText });
+      let questionResponse = await post('/ask-question', { "courseId": props.course, "userId": props.user._id, "question": inputText });
       
       if (!questionResponse || !questionResponse.valid) questionResponse = { "answer": "ERROR" }
 

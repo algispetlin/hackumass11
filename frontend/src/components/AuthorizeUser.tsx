@@ -15,6 +15,9 @@ const AuthorizeUser = () => {
   const { theme } = useThemeContext();
   const [currentUser, setCurrentUser] = useState({} as UserSchema);
   const [posted, setPosted] = useState(false);
+  const [course, setCourse] = useState('');
+
+  const updateCourse = (id: string) => { setCourse(id); console.log(id); };
 
   useEffect(() => {
     if (isAuthenticated && user && !posted) {
@@ -32,8 +35,8 @@ const AuthorizeUser = () => {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <HomeHeaderMUI user={ currentUser }/>
-        <HomePageBody user={ currentUser }/>
+        <HomeHeaderMUI user={ currentUser } updateCourse={ updateCourse }/>
+        <HomePageBody user={ currentUser } course={ course }/>
       </ThemeProvider>
     );
   }
