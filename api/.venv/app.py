@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, Response
+from flask_cors import CORS
 from chatbot import chatRespond
 from database import base64, new_user, create_new_course, add_new_course, get_user_data, get_course_data, change_syllabi
 import pdfminer
 from pdfminer.high_level import extract_text
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def status():

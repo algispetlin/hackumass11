@@ -1,0 +1,13 @@
+.drawer-title {
+    display: flex;
+    align-items: center;
+
+    font-size: 18px;
+    color: #E5E5E5;
+    cursor: pointer;
+}
+
+.drawer-container {
+    background-color: white;
+    height: 100%;
+}
