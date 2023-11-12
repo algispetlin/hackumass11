@@ -15,7 +15,7 @@ export interface newCourse {
     syllabus: string;
 }
 
-export interface UserCourseId {
+export interface userCourseId {
     userId: string;
     courseId: string;
 }
