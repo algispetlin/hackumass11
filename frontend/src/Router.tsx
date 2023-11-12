@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from './pages/LoginPage';
+import TestPage from './pages/TestPage';
 const Authorize = () => {
     const {isAuthenticated} = useAuth0();
     if (isAuthenticated){
@@ -23,6 +24,10 @@ const Router = createBrowserRouter([
             {
                 path: "/home",
                 element: <HomePage />
+            },
+            {
+                path: "/test",
+                element: <TestPage />
             },
             {
                 path: "/login",
