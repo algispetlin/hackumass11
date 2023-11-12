@@ -33,7 +33,7 @@ export default function CourseDrawer(props: { select: (index: number) => void, c
   return (
     <div>
       <div className="drawer-title" onClick={() => { setIsOpen(true) }}>
-        <IconButton sx={{ color: "text.primary", mt: 0.2, ml: 1 }} aria-label="Menu">
+        <IconButton sx={{ color: "text.primary", mb: 0.2, ml: 1 }} aria-label="Menu">
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" align="center" sx={{ flexGrow: 1, color: "text.primary"}}>
