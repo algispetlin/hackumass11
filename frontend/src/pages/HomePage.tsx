@@ -1,5 +1,6 @@
 import React from 'react';
 import HomeHeader from '../components/HomeHeader';
+import HomeHeaderMUI from '../components/HomeHeaderMUI';
 import HomePageBody from '../components/HomePageBody';
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -13,7 +14,8 @@ function HomePage() {
     <ThemeProvider theme={theme}>
     <>
         <CssBaseline />
-        <HomeHeader />
+        {/* <HomeHeader /> */}
+        <HomeHeaderMUI />
         <HomePageBody />
     </></ThemeProvider>
   );
