@@ -60,3 +60,8 @@ export interface Course {
         id: string;
     };
 }
+
+export interface UserQuery {
+    userId: string;
+    query: string;
+}

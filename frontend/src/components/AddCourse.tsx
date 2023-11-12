@@ -5,15 +5,7 @@ import { ListItem, ListItemButton } from '@mui/material';
 import { Course } from '../models/ApiModel';
 import AddIcon from '@mui/icons-material/Add';
 
-
-const coursesArr: Course[] = [
-    { _id: "876543567", name: "CS220", instructor: { name: "Marius Minea", id: "223567544"} }, 
-    { _id: "023654034", name: "CS230", instructor: { name: "Joe Chu", id: "367543766"} },
-    { _id: "945400565", name: "CS240", instructor: { name: "Peter Haas", id: "436578746"} },
-    { _id: "125634573", name: "CS250", instructor: { name: "David Barrington", id: "935667444"} },
-    { _id: "094959756", name: "JOURN250", instructor: { name: "Steve Fox", id: "245647845"} },
-    { _id: "709845805", name: "STATS515", instructor: { name: "Wei Zhu", id: "837249823"} } 
-  ];
+import { post } from '../services/RestService';
 
 const getWindowDimensions = () => {
 const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
@@ -41,7 +33,9 @@ function AddCourse() {
     const [results, setResults] = useState([] as Course[]);
 
     useEffect(() => {
-        setResults(coursesArr);
+        post('/course-search', { "userId": "65508cad9d5aad0ca635088f", "query": "" })
+            .then(response => setResults(response))
+            .catch(error => console.log(error));
     }, []);
 
     return (
@@ -53,21 +47,23 @@ function AddCourse() {
                     id="searchCourses"
                     className="searchbar" 
                     placeholder='Search Courses...'
-                    onKeyDown={event => { 
+                    onKeyDown={async (event) => { 
                         if(event.key === 'Enter') { 
                             let query = (document.getElementById("searchCourses")! as HTMLInputElement).value; 
-                            console.log(query)
-                            setResults(coursesArr);
+                            let result = await post('/course-search', { "userId": "65508cad9d5aad0ca635088f", "query": query });
+
+                            setResults(result);
                         }
                     }}
                 ></input>
                 <div 
                     style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }}
-                    onClick={() => {
+                    onClick={async () => {
                         let query = (document.getElementById("searchCourses")! as HTMLInputElement).value; 
-                        console.log(query);
-                        setResults(coursesArr);
-                        }}
+                        let result = await post('/course-search', { "userId": "65508cad9d5aad0ca635088f", "query": query });
+
+                        setResults(result);
+                    }}
                 >
                     <SearchIcon sx={{ fontSize: 30, color: '#D9D9D9' }} />
                 </div>
