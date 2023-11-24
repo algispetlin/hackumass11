@@ -1,7 +1,7 @@
 import fitz
 import io
 import base64
-from database import users, update_user
+from users import set_user
 
 def highlight_text_in_pdf(base64_pdf, texts_to_highlight):
     pdf_data = base64.b64decode(base64_pdf)
@@ -24,9 +24,9 @@ def highlight_text_in_pdf(base64_pdf, texts_to_highlight):
 
     return base64.b64encode(output_stream.getvalue()).decode('utf-8')
 
-def update_highlight(userId, base64_pdf, texts_to_highlight):
+def update_highlight(user_id, base64_pdf, texts_to_highlight):
     # Create the highlighted PDF
     highlighted_base64 = highlight_text_in_pdf(base64_pdf, texts_to_highlight)
     # Update the user's previous highlighted PDF
-    update_user(userId, "prevHighlight", highlighted_base64)
+    set_user(user_id, "prevHighlight", highlighted_base64)
 
