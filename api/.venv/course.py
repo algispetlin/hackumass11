@@ -8,7 +8,7 @@ from flask import Blueprint
 
 course_api = Blueprint("course_api", __name__)
 
-@course_api.route("/course/create", methods=["POST"])
+@course_api.route("/course", methods=["POST"])
 def create():
     data = request.get_json()
 
@@ -19,11 +19,11 @@ def get_course(course_id):
 
     return get_course_data(course_id)
 
-@course_api.route("/course/set", methods=["PATCH"])
-def set():
+@course_api.route("/course/<course_id>", methods=["PATCH"])
+def set(course_id):
     data = request.get_json()
 
-    return set_course(data["course_id"], data["key"], data["value"])
+    return set_course(course_id, data["key"], data["value"])
 
 @course_api.route("/course/delete/<course_id>", methods=["DELETE"])
 def delete(course_id):
