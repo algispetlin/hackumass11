@@ -1,41 +1,44 @@
-from flask import Flask, request, jsonify, Response
-from flask_cors import CORS
-from database import base64, update_user, update_course, new_user, create_new_course, add_new_course, get_user_data, get_course_data, change_syllabi, delete_user_data, delete_course_data, remove_course_data, course_substring_search
-import pdfminer
-from pdfminer.high_level import extract_text
+from flask import Flask, request
+from users import new_user, get_user_data, set_user, add_new_course, remove_course_data, delete_user_data, course_substring_search
+from flask import Blueprint
 
-@app.route("/create-user", methods=["POST"])
+user_api = Blueprint("user_api", __name__)
+
+@user_api.route("/user", methods=["POST"])
 def create_user():
     data = request.get_json()
-    name = data["name"]
-    email = data["email"]
 
-    result = new_user(name, email)
+    return new_user(data["user_id"], data["name"], data["email"])
 
-    return ("", result) if (result == 400 or result == 404) else jsonify(result)
-
-@app.route("/delete-user", methods=["POST"])
-def delete_user():
+@user_api.route("/user/<user_id>/courses", methods=["POST"])
+def add_user_course(user_id):
     data = request.get_json()
 
-    result = delete_user_data(data["userId"])
+    return add_new_course(user_id, data["course_id"])
 
-    return '', result
+@user_api.route("/user/<user_id>", methods=["GET"])
+def get_user(user_id):
 
-@app.route("/set-permission", methods=["POST"])
-def set_permission():
+    return get_user_data(user_id)
+
+@user_api.route("/user/<user_id>/courses/search", methods=["GET"])
+def search_available_courses(user_id):
+    query = request.args.get('query')
+
+    return course_substring_search(user_id, query)
+
+@user_api.route("/user/<user_id>", methods=["PATCH"])
+def update_user(user_id):
     data = request.get_json()
-    userId = data["userId"]
-    permission = data["permission"]
-    
-    result = update_user(userId, "permission", permission)
 
-    return '', result
+    return set_user(user_id, data["key"], data["value"])
 
-@app.route("/get-user", methods=["POST"])
-def get_user():
-    data = request.get_json()
-    email = data["email"]
+@user_api.route("/user/<user_id>", methods=["DELETE"])
+def delete_user(user_id):
 
-    result = get_user_data(email)
-    return result if result == 404 else jsonify(result), 200
+    return delete_user_data(user_id)
+
+@user_api.route("/user/<user_id>/courses/<course_id>", methods=["DELETE"])
+def remove_user_course(user_id, course_id):
+
+    return remove_course_data(user_id, course_id)

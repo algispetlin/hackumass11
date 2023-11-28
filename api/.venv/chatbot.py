@@ -1,7 +1,9 @@
 from openai import OpenAI
 from highlight import update_highlight
 from bson.objectid import ObjectId
-from database import courses, users
+from database import db
+
+courses = db["Courses"]
 
 def create_completion_with_file(client, file, user_prompt):
     # Create the completion request
@@ -30,18 +32,18 @@ def extract(s, l, r):
       sentence += c
   return result
 
-def chatRespond(userId, courseId, question):
+def chatRespond(user_id, course_id, question):
   valid = True
   try:
-    course = courses.find_one({"_id":ObjectId(courseId)})["name"]
+    course = courses.find_one({"_id":ObjectId(course_id)})["name"]
   except:
-    raise Exception(f"Invalid userId: {userId}")
+    raise Exception(f"Invalid user_id: {user_id}")
   
   try:
-    txt = courses.find_one({"_id":ObjectId(courseId)})["syllabus"]["txt"]
-    pdf = courses.find_one({"_id":ObjectId(courseId)})["syllabus"]["pdf"]
+    txt = courses.find_one({"_id":ObjectId(course_id)})["syllabus"]["txt"]
+    pdf = courses.find_one({"_id":ObjectId(course_id)})["syllabus"]["pdf"]
   except:
-    raise Exception(f"Invalid courseId: {courseId}")
+    raise Exception(f"Invalid course_id: {course_id}")
 
   prompt = """
   Using the uploaded syllabus for [%s], answer [%s]. Answer the question and wrap in <>. 
@@ -71,6 +73,6 @@ def chatRespond(userId, courseId, question):
   except:
     valid = False
 
-  update_highlight(userId, pdf, quotes)
+  update_highlight(user_id, pdf, quotes)
 
   return {"answer": answer, "valid": valid}
