@@ -1,8 +1,8 @@
-from flask import Flask, request
-from users import new_user, get_user_data, set_user, add_new_course, remove_course_data, delete_user_data, course_substring_search
-from flask import Blueprint
+from flask import request
+from user_functions import new_user, get_user_data, set_user, add_new_course, remove_course_data, delete_user_data, course_substring_search, get_user_courses_data
+from apiflask import APIBlueprint
 
-user_api = Blueprint("user_api", __name__)
+user_api = APIBlueprint("user_api", __name__)
 
 @user_api.route("/user", methods=["POST"])
 def create_user():
@@ -20,6 +20,11 @@ def add_user_course(user_id):
 def get_user(user_id):
 
     return get_user_data(user_id)
+
+@user_api.route("/user/<user_id>/courses/", methods=["GET"])
+def get_user_courses(user_id):
+
+    return get_user_courses_data(user_id)
 
 @user_api.route("/user/<user_id>/courses/search", methods=["GET"])
 def search_available_courses(user_id):

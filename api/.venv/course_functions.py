@@ -1,6 +1,7 @@
-from database import db, Response, jsonify, ObjectId, base64
-from users import add_new_course
-import pdfminer
+from flask import Response, jsonify
+import base64
+from database import db, ObjectId
+from user_functions import add_new_course
 from pdfminer.high_level import extract_text
 
 courses = db["Courses"]
@@ -22,10 +23,11 @@ def new_syllabus(original):
 def new_course(name, user_id, syllabus):
     try:
         course_id = ObjectId()
+        instructor = users.find_one({"_id": user_id})
         courses.insert_one({
             "_id": course_id,
             "name": name,
-            "instructor": users.find_one({"_id": user_id}),
+            "instructor": {"_id": instructor["_id"], "name": instructor["name"], "email": instructor["email"]},
             "syllabus": new_syllabus(syllabus)
         })
         add_new_course(user_id, str(course_id))
