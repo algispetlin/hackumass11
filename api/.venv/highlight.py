@@ -1,7 +1,7 @@
 import fitz
 import io
 import base64
-from users import set_user
+from user_functions import set_user
 
 def highlight_text_in_pdf(base64_pdf, texts_to_highlight):
     pdf_data = base64.b64decode(base64_pdf)

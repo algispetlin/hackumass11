@@ -1,14 +1,16 @@
+from flask import Response
 from openai import OpenAI
 from highlight import update_highlight
 from bson.objectid import ObjectId
 from database import db
+import json
 
 courses = db["Courses"]
 
 def create_completion_with_file(client, file, user_prompt):
     # Create the completion request
     completion = client.chat.completions.create(
-        model="gpt-4-32k",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": "You are an academic assistant, specialized in addressing questions specifically related to the current course. Your responses are tailored to the course content and syllabus, and you provide sources from the course material. You focus solely on assisting with course-related queries."},
             {"role": "user", "content": file},
@@ -33,46 +35,33 @@ def extract(s, l, r):
   return result
 
 def chatRespond(user_id, course_id, question):
-  valid = True
   try:
     course = courses.find_one({"_id":ObjectId(course_id)})["name"]
-  except:
-    raise Exception(f"Invalid user_id: {user_id}")
-  
-  try:
     txt = courses.find_one({"_id":ObjectId(course_id)})["syllabus"]["txt"]
     pdf = courses.find_one({"_id":ObjectId(course_id)})["syllabus"]["pdf"]
   except:
-    raise Exception(f"Invalid course_id: {course_id}")
+    return Response(status=404)
 
   prompt = """
-  Using the uploaded syllabus for [%s], answer [%s]. Answer the question and wrap in <>. 
+  Using the uploaded syllabus for [%s], answer [%s]. 
 
-  Afterward, in a new line, please quote directly, ensuring the quotes are formatted correctly without additional spaces, missed commas, or typographical errors.
+  Format your response as a json in this format {"answer": string, "sources": string[]}. 
 
-  Each quote should be surrounded by curly braces and each new line in a quote is a new quote.
-  For example:
-  Food:
-  apple
-  banana
-  Result: {Food:}{apple}{banana}
+  "answer" is your answer to the question. It should be succinct and helpful.
 
-  Your response should follow this convention:
-  <Answer>{quote1}{quote2}...{quoteN}
+  "sources" is a list of strings that are direct quotes from the given syllabus file that support the response. 
 
-  This is an example response:
-  <An apple is the tastiest fruit>{most people love apples}{apples are sweet}
-
-  The whole response should be in one line""" % (course, question)
+  Split source strings if there is a new line or if they are the contents of a list or bullet points.
+  """ % (course, question)
 
   try:
     completion = create_completion_with_file(OpenAI(), txt, prompt)
-    answer_quotes = completion.choices[0].message.content
-    answer = extract(answer_quotes, "<", ">")[0]
-    quotes = extract(answer_quotes, "{", "}")
+    response = json.loads(completion.choices[0].message.content)
+    answer = response["answer"]
+    sources = response["sources"]
   except:
-    valid = False
+    return {"answer": "Response Failed to Complete", "valid": False}
 
-  update_highlight(user_id, pdf, quotes)
+  update_highlight(user_id, pdf, sources)
 
-  return {"answer": answer, "valid": valid}
+  return {"answer": answer, "valid": True}
